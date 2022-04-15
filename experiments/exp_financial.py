@@ -26,9 +26,9 @@ class Exp_financial(Exp_Basic):
         if self.args.L1Loss:
             self.criterion = smooth_l1_loss
         else:
-            self.criterion = nn.MSELoss(size_average=False).cuda()
-        self.evaluateL2 = nn.MSELoss(size_average=False).cuda()
-        self.evaluateL1 = nn.L1Loss(size_average=False).cuda()
+            self.criterion = nn.MSELoss(size_average=False).to(self.args.device)
+        self.evaluateL2 = nn.MSELoss(size_average=False).to(self.args.device)
+        self.evaluateL1 = nn.L1Loss(size_average=False).to(self.args.device)
         self.writer = SummaryWriter('.exp/run_financial/{}'.format(args.model_name))
     
     def _build_model(self):
@@ -122,7 +122,7 @@ class Exp_financial(Exp_Basic):
                     forecast, res = self.model(tx)
                 scale = data.scale.expand(forecast.size(0), self.args.horizon, data.m)
                 bias = data.bias.expand(forecast.size(0), self.args.horizon, data.m)
-                weight = torch.tensor(self.args.lastWeight).cuda() #used with multi-step
+                weight = torch.tensor(self.args.lastWeight).to(self.args.device) #used with multi-step
 
                 if self.args.single_step: #single step
                     ty_last = ty[:, -1, :]

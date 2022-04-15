@@ -17,7 +17,7 @@ class DataLoaderH(object):
         self.dat = np.zeros(self.rawdat.shape)
 
         self.n, self.m = self.dat.shape
-        self.normalize = 2
+        self.normalize = normalize
         self.scale = np.ones(self.m)
         self.bias =  np.zeros(self.m)
         self._normalized(normalize)
