@@ -290,11 +290,11 @@ class Trainer(Exp_Basic):
             self._wandb.log(metrics_dict, step=epoch*steps_per_epoch+iter)
             if val_mse < best_val and self.args.long_term_forecast:
                 save_model(epoch, lr, self.model, save_path, model_name=self.args.dataset_name, horizon=self.args.horizon)
-                print('--------------| Best Val loss |--------------')
+                # print('--------------| Best Val loss |--------------')
                 best_val = val_mse
             elif val_loss < best_val and not self.args.long_term_forecast:
                 save_model(epoch, lr, self.model, save_path, model_name=self.args.dataset_name, horizon=self.args.horizon)
-                print('--------------| Best Val loss |--------------')
+                # print('--------------| Best Val loss |--------------')
                 best_val = val_loss
 
         if self.args.load_best_model:
